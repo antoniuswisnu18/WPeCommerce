@@ -1,4 +1,7 @@
-﻿namespace WPeCommerceAPI
+﻿using Microsoft.EntityFrameworkCore;
+using WPeCommerceAPI.DataLayer;
+
+namespace WPeCommerceAPI
 {
     public class Startup
     {
@@ -17,6 +20,9 @@
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
+            services.AddDbContext<AppDbContext>(
+                options => options.UseSqlServer(_configuration["ConnectionStrings:DefaultConnection"]));
+
         }
 
         public void Configure(WebApplication app, IWebHostEnvironment env)
