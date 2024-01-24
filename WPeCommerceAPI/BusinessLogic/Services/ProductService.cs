@@ -36,6 +36,17 @@ namespace WPeCommerceAPI.BusinessLogic.Services
             return products;
         }
 
+        public Product GetById(int id)
+        {
+            var product = _repo.GetById(id);
+            if(product == null)
+            {
+                _logger.Error($"Cannot find Product with respective {id}");
+            }
+            _logger.Info($"Successfully retrieve Product with id : {id}");
+            return product;
+        }
+
         public bool Update(Product product)
         {
             throw new NotImplementedException();

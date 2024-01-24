@@ -20,12 +20,14 @@ namespace WPeCommerceAPI
         public void serviceConfiguration(IServiceCollection services)
         {
             // Add services to the container.
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<IProductRepo, ProductRepo>();
             services.AddScoped<IProductService, ProductService>();
             services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
+            
             
             services.AddDbContext<AppDbContext>(
                 options => options.UseSqlServer(_configuration["ConnectionStrings:DefaultConnection"]));
@@ -54,7 +56,6 @@ namespace WPeCommerceAPI
         {
             var logRepo = LogManager.GetRepository(System.Reflection.Assembly.GetEntryAssembly());
             XmlConfigurator.Configure(logRepo, new System.IO.FileInfo("log4net.config"));
-            _logger.Info("log4net configured successfully.");
         }
 
     }

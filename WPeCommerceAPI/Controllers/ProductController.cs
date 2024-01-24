@@ -1,6 +1,8 @@
-﻿using log4net;
+﻿using AutoMapper;
+using log4net;
 using Microsoft.AspNetCore.Mvc;
 using WPeCommerceAPI.BusinessLogic.Services;
+using WPeCommerceAPI.DataLayer.DTO;
 
 namespace WPeCommerceAPI.Controllers
 {
@@ -10,10 +12,12 @@ namespace WPeCommerceAPI.Controllers
     {
         private readonly IProductService _service;
         private static ILog _logger = LogManager.GetLogger(typeof(ProductController));
+        private static IMapper _mapper;
 
-        public ProductController(IProductService service)
+        public ProductController(IProductService service, IMapper mapper)
         {
             _service = service;
+            _mapper = mapper;
         }
         [HttpGet("GetAll")]
         public IActionResult GetAll()
@@ -23,7 +27,16 @@ namespace WPeCommerceAPI.Controllers
             {
                 _logger.Info("Successfully retrieve products");
             }
-            return Ok(products);
+            var productsDto = products.Select(x => _mapper.Map<ProductDTO>(x));
+            return Ok(productsDto);
+        }
+
+        [HttpGet("GetById/{id}")]
+        public IActionResult GetById(int id)
+        {
+            var product = _service.GetById(id);
+            var productDto = _mapper.Map<ProductDTO>(product);
+            return Ok(productDto);
         }
     }
 }

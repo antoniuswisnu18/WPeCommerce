@@ -9,5 +9,6 @@ namespace WPeCommerceAPI.BusinessLogic.Services
         bool Create(Product product);
         bool Update(Product product);
         bool Delete(Product product);
+        Product GetById(int id);
     }
 }
