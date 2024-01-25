@@ -10,8 +10,6 @@ namespace WPeCommerceAPI.Helper
         {
             CreateMap<ProductDTO, Product>();
             CreateMap<Product, ProductDTO>();
-            CreateMap<ReviewDTO, Review>();
-            CreateMap<Review, ReviewDTO>();
         }
     }
 }

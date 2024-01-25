@@ -23,8 +23,6 @@ namespace WPeCommerceAPI
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<IProductRepo, ProductRepo>();
             services.AddScoped<IProductService, ProductService>();
-            services.AddScoped<IReviewRepo, ReviewRepo>();
-            services.AddScoped<IReviewService, ReviewService>();
             services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             services.AddEndpointsApiExplorer();
