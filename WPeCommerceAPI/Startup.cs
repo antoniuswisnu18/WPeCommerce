@@ -4,6 +4,7 @@ using WPeCommerceAPI.DataLayer;
 using log4net;
 using log4net.Config;
 using WPeCommerceAPI.BusinessLogic.Services;
+using Microsoft.AspNetCore.Identity;
 
 namespace WPeCommerceAPI
 {
@@ -33,7 +34,11 @@ namespace WPeCommerceAPI
             
             services.AddDbContext<AppDbContext>(
                 options => options.UseSqlServer(_configuration["ConnectionStrings:DefaultConnection"]));
-
+            services.AddDbContext<IdDbContext>(
+                options => options.UseSqlServer(_configuration["ConnectionStrings:DefaultConnection"]));
+            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            options.SignIn.RequireConfirmedEmail = false)
+                .AddEntityFrameworkStores<IdDbContext>();
         }
 
         public void Configure(WebApplication app, IWebHostEnvironment env)
